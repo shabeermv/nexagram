@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================= */
+/* CLIENT LOGO MARQUEE ANIMATION */
+/* ============================= */
+
+@keyframes client-marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-client-marquee {
+  animation: client-marquee 65s linear infinite;
+  will-change: transform;
+}
+
+/* Pause animation when hovering */
+.animate-client-marquee:hover {
+  animation-play-state: paused;
+}
+@font-face {
+  font-family: "Eurostile";
+  src: url("/fonts/Eurostile-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Eurostile";
+  src: url("/fonts/Eurostile-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: "Eurostile", sans-serif;
+}
