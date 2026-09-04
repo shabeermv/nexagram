@@ -5,6 +5,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import nodemailer from "nodemailer";
 import http from "http";
+import fs from "fs";
 
 // Load environment variables
 dotenv.config();
@@ -170,50 +171,35 @@ ${message}
   }
 });
 
+// API 404 handler - prevents unhandled API requests from falling through
+app.all("/api/*", (req, res) => {
+  res.status(404).json({
+    success: false,
+    error: "API endpoint not found",
+  });
+});
+
 // Frontend serving (Unified Server for Dev & Production)
 const rootDir = path.resolve(__dirname, "..");
 const isProduction = process.env.NODE_ENV === "production";
 
-if (!isProduction) {
-  try {
-    const { createServer: createViteServer } = await import("vite");
-    const vite = await createViteServer({
-      server: {
-        middlewareMode: true,
-        hmr: { server },
-      },
-      appType: "spa",
-      root: rootDir,
-    });
-    app.use(vite.middlewares);
-    console.log("⚡ Vite development middleware attached (HMR active)");
-  } catch (error) {
-    console.warn(
-      "⚠️ Could not initialize Vite middleware, falling back to static dist serving:",
-      error.message
-    );
-    const buildPath = path.join(rootDir, "dist");
-    app.use(express.static(buildPath));
-    app.use(express.static(path.join(rootDir, "public")));
-    app.get("*", (req, res) => {
-      if (req.path.startsWith("/api")) {
-        return res.status(404).json({ error: "API endpoint not found" });
-      }
-      res.sendFile(path.join(buildPath, "index.html"));
-    });
-  }
-} else {
+function attachStaticServing() {
   const buildPath = path.join(rootDir, "dist");
-  app.use(express.static(buildPath));
+  app.use(
+    express.static(buildPath, {
+      setHeaders: (res, filePath) => {
+        if (filePath.endsWith(".html")) {
+          res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        } else {
+          res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+        }
+      },
+    })
+  );
   app.use(express.static(path.join(rootDir, "public")));
 
   app.get("*", (req, res) => {
-    if (req.path.startsWith("/api")) {
-      return res.status(404).json({
-        error: "API endpoint not found",
-      });
-    }
-
+    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     res.sendFile(path.join(buildPath, "index.html"), (err) => {
       if (err) {
         res
@@ -224,6 +210,58 @@ if (!isProduction) {
       }
     });
   });
+}
+
+if (!isProduction) {
+  try {
+    const { createServer: createViteServer } = await import("vite");
+    const vite = await createViteServer({
+      server: {
+        middlewareMode: true,
+        hmr: { server },
+        proxy: {},
+      },
+      appType: "custom",
+      root: rootDir,
+    });
+
+    // Vite middlewares handle transformed assets (JS, CSS, images, HMR WS)
+    app.use(vite.middlewares);
+
+    // Dynamic HTML serving with Vite transform so design is ALWAYS current
+    app.use("*", async (req, res, next) => {
+      if (req.path.startsWith("/api")) {
+        return res.status(404).json({ error: "API endpoint not found" });
+      }
+
+      try {
+        const url = req.originalUrl;
+        const indexPath = path.resolve(rootDir, "index.html");
+        let template = fs.readFileSync(indexPath, "utf-8");
+        template = await vite.transformIndexHtml(url, template);
+        res
+          .status(200)
+          .set({
+            "Content-Type": "text/html",
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+          })
+          .end(template);
+      } catch (err) {
+        vite.ssrFixStacktrace(err);
+        next(err);
+      }
+    });
+
+    console.log("⚡ Vite development middleware attached (Live HMR active)");
+  } catch (error) {
+    console.warn(
+      "⚠️ Could not initialize Vite middleware, falling back to static dist serving:",
+      error.message
+    );
+    attachStaticServing();
+  }
+} else {
+  attachStaticServing();
 }
 
 server.listen(PORT, () => {
