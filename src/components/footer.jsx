@@ -195,25 +195,6 @@ export function Footer() {
           >
             www.nexagram.com
           </a>
-
-          {/* Privacy / Terms */}
-          <div className="flex items-center gap-5">
-            <a
-              href="#"
-              className="text-xs text-white/35 transition-colors duration-300 hover:text-white"
-            >
-              Privacy Policy
-            </a>
-
-            <span className="h-1 w-1 rounded-full bg-white/20" />
-
-            <a
-              href="#"
-              className="text-xs text-white/35 transition-colors duration-300 hover:text-white"
-            >
-              Terms
-            </a>
-          </div>
         </div>
       </div>
     </footer>
