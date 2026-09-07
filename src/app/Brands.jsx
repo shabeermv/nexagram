@@ -3,7 +3,7 @@
 const CLIENTS = [
   {
     name: "CLICKCART",
-    logo: "/image/clients/ventreads.png",
+    logo: "/image/clients/travel vista.PNG",
   },
 
   {
@@ -14,6 +14,10 @@ const CLIENTS = [
   {
     name: "CLICKCART",
     logo: "/image/clients/ventreads.png",
+  },
+  {
+    name: "CLICKCART",
+    logo: "/image/clients/caplineedu_logo.png",
   },
 ];
 
@@ -79,26 +83,33 @@ export default function Clients() {
       {" "}
       <div className="mx-auto max-w-7xl">
         {" "}
-        {/* HEADER */}{" "}
-        <div className="mb-16 text-center">
-          {" "}
-          <div className="mb-5 flex items-center justify-center gap-3">
-            {" "}
-            <span className="h-px w-10 bg-gray-300" />{" "}
-            <span className="h-px w-10 bg-gray-300" />{" "}
-          </div>{" "}
-          <h2 className=" text-4xl font-black tracking-[-0.04em] text-gray-950 md:text-6xl ">
-            {" "}
-            <span className="text-gray-300"> Our Brother Ventures </span>{" "}
-          </h2>{" "}
-          <p className=" mx-auto mt-6 max-w-2xl text-base leading-7 text-gray-500 md:text-lg ">
-            {" "}
+        {/* HEADER */} {/* HEADER */}
+        <div className="mb-20 text-center">
+          {/* Eyebrow */}
+          <div className="mb-6 flex items-center justify-center gap-4">
+            <span className="h-px w-12 bg-[#58B947]" />
+
+            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#58B947]">
+              Our Brother Ventures
+            </span>
+
+            <span className="h-px w-12 bg-[#58B947]" />
+          </div>
+
+          {/* Main Heading */}
+          <h2 className="mx-auto max-w-4xl text-4xl font-black leading-[1.05] tracking-[-0.04em] text-gray-950 sm:text-5xl md:text-6xl lg:text-7xl">
+            Building Brands.
+            <br />
+            <span className="text-gray-300">Creating Impact.</span>
+          </h2>
+
+          {/* Description */}
+          <p className="mx-auto mt-7 max-w-2xl text-base leading-7 text-gray-500 md:text-lg">
             We partner with ambitious businesses to build stronger brands,
             unlock new opportunities, and achieve sustainable growth through
-            strategic thinking, meaningful connections, and measurable
-            results.{" "}
-          </p>{" "}
-        </div>{" "}
+            strategic thinking, meaningful connections, and measurable results.
+          </p>
+        </div>
         {/* CLIENT MARQUEE */}{" "}
         <div className=" relative overflow-hidden rounded-[2rem] border border-gray-200 bg-gray-50 p-5 md:p-8 lg:p-10 ">
           {" "}

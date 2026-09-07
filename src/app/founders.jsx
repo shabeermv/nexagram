@@ -6,7 +6,7 @@ const founders = [
     image: "/image/ashiq png.png",
   },
   {
-    name: "Suhail",
+    name: "Suhail V",
     role: "Coustomer Relationship Manager",
     image: "/image/suhail nexagram png.png",
   },
