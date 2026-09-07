@@ -155,10 +155,10 @@ export function Contact() {
                     </p>
 
                     <a
-                      href="mailto:hello@nexagram.com"
+                      href="mailto:hello@nexagram@gmail.com"
                       className="mt-2 inline-block text-sm text-white/70 transition-colors hover:text-[#58B947]"
                     >
-                      hello@nexagram.com
+                      nexagram.in@gmail.com
                     </a>
                   </div>
                 </div>
@@ -172,7 +172,9 @@ export function Contact() {
                   <div className="flex flex-wrap gap-3">
                     {/* Instagram */}
                     <a
-                      href="#"
+                      href="https://www.instagram.in/nexagram.in/"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       aria-label="Instagram"
                       className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/60 transition-all duration-300 hover:-translate-y-1 hover:border-[#58B947] hover:bg-[#58B947] hover:text-white"
                     >
@@ -197,18 +199,11 @@ export function Contact() {
                       <FaLinkedinIn className="h-4 w-4" />
                     </a>
 
-                    {/* YouTube */}
-                    <a
-                      href="#"
-                      aria-label="YouTube"
-                      className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/60 transition-all duration-300 hover:-translate-y-1 hover:border-[#58B947] hover:bg-[#58B947] hover:text-white"
-                    >
-                      <FaYoutube className="h-4 w-4" />
-                    </a>
-
                     {/* WhatsApp */}
                     <a
-                      href="#"
+                      href="https://wa.me/917591901405"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       aria-label="WhatsApp"
                       className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/60 transition-all duration-300 hover:-translate-y-1 hover:border-[#58B947] hover:bg-[#58B947] hover:text-white"
                     >

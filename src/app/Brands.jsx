@@ -5,33 +5,15 @@ const CLIENTS = [
     name: "CLICKCART",
     logo: "/image/clients/ventreads.png",
   },
+
   {
     name: "GRILLSPOT",
-    logo: "/image/clients/misofa_logo-removebg-preview.png",
+    logo: "/image/clients/optaxwave logo png.png",
   },
-  {
-    name: "CLICKCART",
-    logo: "/image/clients/chickbuck logo.png",
-  },
-  {
-    name: "GRILLSPOT",
-    logo: "/image/clients/aquaspa.png",
-  },
-  {
-    name: "CLICKCART",
-    logo: "/image/clients/stylo png.png",
-  },
-  {
-    name: "GRILLSPOT",
-    logo: "/image/clients/pac png.png",
-  },
+
   {
     name: "CLICKCART",
     logo: "/image/clients/ventreads.png",
-  },
-  {
-    name: "GRILLSPOT",
-    logo: "/image/clients/misofa_logo-removebg-preview.png",
   },
 ];
 
@@ -103,22 +85,18 @@ export default function Clients() {
           <div className="mb-5 flex items-center justify-center gap-3">
             {" "}
             <span className="h-px w-10 bg-gray-300" />{" "}
-            <span className="text-xs font-bold uppercase tracking-[0.35em] text-gray-400">
-              {" "}
-              Our Clients{" "}
-            </span>{" "}
             <span className="h-px w-10 bg-gray-300" />{" "}
           </div>{" "}
           <h2 className=" text-4xl font-black tracking-[-0.04em] text-gray-950 md:text-6xl ">
             {" "}
-            Trusted by brands{" "}
-            <span className="text-gray-300"> that think forward. </span>{" "}
+            <span className="text-gray-300"> Our Brother Ventures </span>{" "}
           </h2>{" "}
           <p className=" mx-auto mt-6 max-w-2xl text-base leading-7 text-gray-500 md:text-lg ">
             {" "}
-            From growing businesses to established organizations, we help
-            ambitious brands communicate better, connect deeper, and create
-            measurable digital impact.{" "}
+            We partner with ambitious businesses to build stronger brands,
+            unlock new opportunities, and achieve sustainable growth through
+            strategic thinking, meaningful connections, and measurable
+            results.{" "}
           </p>{" "}
         </div>{" "}
         {/* CLIENT MARQUEE */}{" "}

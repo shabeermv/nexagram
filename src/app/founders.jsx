@@ -5,7 +5,11 @@ const founders = [
     role: "Founder, Managing Director",
     image: "/image/ashiq png.png",
   },
-  { name: "Jasar KP", role: "Co-founder", image: "/image/shanif png.png" },
+  {
+    name: "Suhail",
+    role: "Coustomer Relationship Manager",
+    image: "/image/suhail nexagram png.png",
+  },
   {
     name: "Lukmanul Hakeem K",
     role: "Co-founder, Sales Head",
