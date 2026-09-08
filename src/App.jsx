@@ -6,7 +6,7 @@ import Hero from "@/app/hero";
 import OnlineCourse from "@/app/about";
 import Services from "@/app/services";
 import Founders from "@/app/founders";
-import Brands from "@/app/brands";
+import Brands from "./app/Brands";
 import Achivements from "@/app/achivements";
 import Contact from "@/app/contact";
 
