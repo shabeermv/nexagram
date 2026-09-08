@@ -6,7 +6,7 @@ import Hero from "./hero";
 import OnlineCourse from "./about";
 import Services from "./services";
 import Founders from "./founders";
-import Pricing from "./brands";
+import Pricing from "./Brands";
 import Achivements from "./achivements";
 
 export default function Campaign() {
