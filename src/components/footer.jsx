@@ -44,7 +44,6 @@ export function Footer() {
         {/* =======================================================
             TOP FOOTER CONTENT
         ======================================================== */}
-
         <div className="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-16 lg:gap-20">
           {/* =====================================================
               LOGO
@@ -169,13 +168,10 @@ export function Footer() {
             </div>
           </div>
         </div>
-
         {/* =======================================================
             DIVIDER
         ======================================================== */}
-
         <div className="my-10 h-px bg-white/10" />
-
         {/* =======================================================
             BOTTOM FOOTER
         ======================================================== */}
@@ -183,18 +179,21 @@ export function Footer() {
         <div className="flex flex-col items-center justify-between gap-5 md:flex-row">
           {/* Copyright */}
           <p className="text-center text-xs text-white/35 md:text-left">
-            © {currentYear} Nexagram. All rights reserved.
+            © {currentYear} Ventre Ads. All rights reserved.
           </p>
 
-          {/* Website */}
-          <a
-            href="https://www.nexagram.com"
-            target="_blank"
-            rel="noreferrer"
-            className="text-sm font-medium text-white/50 transition-colors duration-300 hover:text-[#58B947]"
-          >
-            www.nexagram.com
-          </a>
+          {/* Instagram Credit */}
+          <p className="text-center text-xs text-white/35 md:text-right">
+            Proudly Powered by{" "}
+            <a
+              href="https://www.instagram.com/ventr_ads/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-white/50 transition-colors duration-300 hover:text-[#58B947]"
+            >
+              Ventre Ads
+            </a>
+          </p>
         </div>
       </div>
     </footer>

@@ -17,7 +17,7 @@ const founders = [
   },
   {
     name: "Mohamed Shanif P",
-    role: "Co-founder, Creative Head",
+    role: "Co-founder, Operation Manager",
     image: "/image/shanif png.png",
   },
 ];

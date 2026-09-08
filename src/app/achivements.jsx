@@ -15,25 +15,10 @@ const OTHER_COURSES = [
     img: "/image/2026 Election Strategy and PR for UDF.jpeg",
     title: "2026 Election Strategy and PR for UDF",
   },
-  {
-    img: "/image/blogs/blog4.svg",
-    title: "Delhi High Court Organized Live Law Program",
-  },
-  {
-    img: "/image/blogs/blog4.svg",
-    title: "Election Strategy and PR for IUML",
-  },
-  {
-    img: "/image/blogs/blog4.svg",
-    title: "2023 Jcom Best Branding Agency Award",
-  },
+
   {
     img: "/image/2023 JCI India Zone Award.jpeg",
     title: "2023 JCI India Zone Award",
-  },
-  {
-    img: "/image/blogs/blog4.svg",
-    title: "2025 Jcom Best Branding Agency Award",
   },
 ];
 
