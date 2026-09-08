@@ -149,14 +149,6 @@ export default function Services() {
               Our <span className="text-[#58B947]">Services</span>
             </h1>
           </div>
-
-          <div className="lg:pl-10">
-            <p className="max-w-xl text-base leading-7 text-black/55 md:text-lg">
-              From strategy and branding to technology and digital marketing, we
-              create meaningful solutions that help businesses communicate
-              better, connect deeper, and grow stronger.
-            </p>
-          </div>
         </div>
 
         {/* =====================================================
@@ -202,7 +194,7 @@ export default function Services() {
 
                 {/* Features */}
 
-                <div className="relative space-y-2.5 border-t border-black/[0.08] pt-5">
+                {/* <div className="relative space-y-2.5 border-t border-black/[0.08] pt-5">
                   {service.features.map((feature) => (
                     <div
                       key={feature}
@@ -213,7 +205,7 @@ export default function Services() {
                       <span>{feature}</span>
                     </div>
                   ))}
-                </div>
+                </div> */}
 
                 {/* Bottom Hover Line */}
 

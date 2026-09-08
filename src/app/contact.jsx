@@ -172,7 +172,7 @@ export function Contact() {
                   <div className="flex flex-wrap gap-3">
                     {/* Instagram */}
                     <a
-                      href="https://www.instagram.in/nexagram.in/"
+                      href="https://www.instagram.com/nexagram.in/?hl=en"
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Instagram"
