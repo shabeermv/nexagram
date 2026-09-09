@@ -192,33 +192,22 @@ export function OnlineCourse() {
                 ))}
               </div>
             </div>
-
             {/* =====================================================
                 IMAGE RIGHT
             ====================================================== */}
+
             <div className="order-1 flex justify-center lg:order-2 lg:justify-end">
-              <div className="relative flex min-h-[430px] w-full max-w-[500px] items-center justify-center overflow-hidden rounded-3xl border border-gray-200 bg-white p-8 shadow-sm sm:min-h-[520px] lg:min-h-[600px]">
+              <div className="relative flex min-h-[430px] w-full max-w-[500px] items-center justify-center overflow-hidden rounded-3xl bg-white p-8 sm:min-h-[520px] lg:min-h-[600px]">
                 {/* Background X line */}
                 <div className="absolute left-0 top-1/2 h-[1px] w-full bg-[#58B947]/10" />
 
-                <div className="overflow-hidden rounded-xl shadow-lg" />
-
-                {/* Image */}
-                <img
-                  src="/image/nexa hand.png"
-                  alt="Nexagram Digital Communication"
-                  className="relative z-10 h-auto max-h-[420px] w-auto max-w-[270px] object-contain transition-transform duration-500 hover:scale-[1.03] sm:max-h-[480px] sm:max-w-[320px] lg:max-h-[550px] lg:max-w-[360px]"
-                />
-
-                {/* Small bottom label */}
-                <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between border-t border-gray-100 pt-4">
-                  <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-gray-400">
-                    Nexagram
-                  </span>
-
-                  <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#58B947]">
-                    Digital Standard
-                  </span>
+                {/* Image with border */}
+                <div className="relative z-10 rounded-2xl border border-gray-200 p-3 shadow-sm">
+                  <img
+                    src="/image/nexa hand.png"
+                    alt="Nexagram Digital Communication"
+                    className="h-auto max-h-[420px] w-auto max-w-[270px] object-contain transition-transform duration-500 hover:scale-[1.03] sm:max-h-[480px] sm:max-w-[320px] lg:max-h-[550px] lg:max-w-[360px]"
+                  />
                 </div>
               </div>
             </div>

@@ -98,18 +98,16 @@ export function Navbar() {
           <a
             href="#home"
             onClick={() => setOpen(false)}
-            className="flex shrink-0 items-center"
+            className="flex h-20 w-[180px] shrink-0 items-center justify-start"
           >
             <img
               src={
-                isHome ? "/image/nexa logo png.png" : "/image/nexa blue png.png"
+                isHome
+                  ? "/image/nexagram_white_logo_green_x.png"
+                  : "/image/nexa blue png.png"
               }
               alt="Nexagram"
-              className={
-                isHome
-                  ? "h-[95px] w-[260px] object-contain"
-                  : "h-[45px] w-[140px] object-contain"
-              }
+              className="h-full w-full object-contain object-left"
             />
           </a>
 
