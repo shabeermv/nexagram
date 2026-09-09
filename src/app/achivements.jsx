@@ -107,7 +107,7 @@ export function OtherCourses() {
           HUGE BACKGROUND TEXT
       ========================================================== */}
 
-      <div className="container mx-auto mt-12 overflow-hidden lg:mt-16">
+      <div className="container mx-auto mt-12 overflow-hidden lg:mt-6 mb-12">
         <div className="relative h-[90px] sm:h-[110px] md:h-[130px] lg:h-[150px]">
           <h2
             className="

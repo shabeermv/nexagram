@@ -135,14 +135,20 @@ export function Footer() {
                   href="tel:+919496699405"
                   className="mt-1 block text-sm font-medium text-white/70 transition-colors hover:text-[#58B947]"
                 >
-                  +91 94966 99405
+                  +91 92077 14570
                 </a>
 
                 <a
                   href="tel:+919745205059"
                   className="mt-1 block text-sm font-medium text-white/70 transition-colors hover:text-[#58B947]"
                 >
-                  +91 97452 05059
+                  +91 96336 60361
+                </a>
+                <a
+                  href="tel:+919745205059"
+                  className="mt-1 block text-sm font-medium text-white/70 transition-colors hover:text-[#58B947]"
+                >
+                  +91 7591 901 405
                 </a>
               </div>
             </div>
