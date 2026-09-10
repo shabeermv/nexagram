@@ -7,7 +7,7 @@ const founders = [
   },
   {
     name: "Suhail V",
-    role: "Coustomer Relationship Manager",
+    role: "Co-founder, CRM",
     image: "/image/suhail nexagram png.png",
   },
   {
@@ -16,9 +16,14 @@ const founders = [
     image: "/image/lukman png.png",
   },
   {
-    name: "Mohamed Shanif P",
+    name: "Mohamed Shanif p",
     role: "Co-founder, Operation Manager",
     image: "/image/shanif png.png",
+  },
+  {
+    name: "Jasar KP",
+    role: "Co-founder",
+    image: "/image/jasar kp.png",
   },
 ];
 export default function FoundersSection() {
@@ -53,7 +58,8 @@ export default function FoundersSection() {
         </div>
 
         {/* ================= FOUNDERS GRID ================= */}
-        <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-12 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-0">
+        <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-12 lg:grid-cols-5 lg:gap-x-6 lg:gap-y-0">
+          {" "}
           {founders.map((founder, index) => (
             <div key={index} className="flex flex-col items-center text-center">
               {/* FOUNDER IMAGE */}

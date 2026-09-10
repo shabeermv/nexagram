@@ -98,9 +98,9 @@ export default function Clients() {
 
           {/* Main Heading */}
           <h2 className="mx-auto max-w-4xl text-4xl font-black leading-[1.05] tracking-[-0.04em] text-gray-950 sm:text-5xl md:text-6xl lg:text-7xl">
-            Building Brands.
+            One Network.
             <br />
-            <span className="text-gray-300">Creating Impact.</span>
+            <span className="text-gray-300">Multiple Specialities.</span>
           </h2>
 
           {/* Description */}

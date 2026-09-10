@@ -140,19 +140,10 @@ export function OnlineCourse() {
                 </span>
               </div>
 
-              {/* Heading */}
               <h2 className="max-w-2xl text-3xl font-semibold leading-tight tracking-tight text-[#0d0d4f] sm:text-4xl lg:text-5xl">
-                Digital Communication &{" "}
-                <span className="text-[#58B947]">Marketing Solutions</span>
+                Driven by Purpose.
+                <span className="block text-[#58B947]">Defined by Impact.</span>
               </h2>
-
-              {/* Description */}
-              <p className="mt-6 max-w-2xl text-base leading-7 text-gray-500 md:text-lg">
-                Nexagram is a forward-thinking digital marketing company focused
-                on transforming communication between governments, businesses,
-                and citizens through innovative, transparent, and impactful
-                digital strategies.
-              </p>
 
               {/* =================================================
                   FEATURES
@@ -197,18 +188,34 @@ export function OnlineCourse() {
             ====================================================== */}
 
             <div className="order-1 flex justify-center lg:order-2 lg:justify-end">
-              <div className="relative flex min-h-[430px] w-full max-w-[500px] items-center justify-center overflow-hidden rounded-3xl bg-white p-8 sm:min-h-[520px] lg:min-h-[600px]">
+              <div className="relative flex min-h-[430px] w-full max-w-[500px] items-end justify-center overflow-hidden rounded-3xl border border-gray-200 bg-white p-0 shadow-sm sm:min-h-[520px] lg:min-h-[600px]">
                 {/* Background X line */}
                 <div className="absolute left-0 top-1/2 h-[1px] w-full bg-[#58B947]/10" />
 
-                {/* Image with border */}
-                <div className="relative z-10 rounded-2xl border border-gray-200 p-3 shadow-sm">
-                  <img
-                    src="/image/nexa hand.png"
-                    alt="Nexagram Digital Communication"
-                    className="h-auto max-h-[420px] w-auto max-w-[270px] object-contain transition-transform duration-500 hover:scale-[1.03] sm:max-h-[480px] sm:max-w-[320px] lg:max-h-[550px] lg:max-w-[360px]"
-                  />
-                </div>
+                {/* Hand Image */}
+                <img
+                  src="/image/nexa hand.png"
+                  alt="Nexagram Digital Communication"
+                  className="
+        relative z-10
+        h-auto
+        max-h-[480px]
+        w-auto
+        max-w-[320px]
+        object-contain
+        translate-y-[5px]
+        drop-shadow-[0_15px_25px_rgba(0,0,0,0.18)]
+        transition-transform duration-500
+        hover:scale-[1.03]
+
+        sm:max-h-[560px]
+        sm:max-w-[370px]
+
+        lg:max-h-[650px]
+        lg:max-w-[420px]
+        lg:translate-y-[10px]
+      "
+                />
               </div>
             </div>
           </div>
