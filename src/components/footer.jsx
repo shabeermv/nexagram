@@ -168,7 +168,7 @@ export function Footer() {
                   href="mailto:info@nexagram.com"
                   className="mt-1 block text-sm text-white/70 transition-colors hover:text-[#58B947]"
                 >
-                  info@nexagram.com
+                  nexagram.in@gmail.com
                 </a>
               </div>
             </div>
