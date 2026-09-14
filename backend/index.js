@@ -7,23 +7,58 @@ import nodemailer from "nodemailer";
 import http from "http";
 import fs from "fs";
 
-// Load environment variables
-dotenv.config();
+// --------------------------------------------------
+// PATH SETUP
+// --------------------------------------------------
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// .env is in the project root, one level above /backend
 dotenv.config({
-  path: path.resolve(__dirname, ".env"),
+  path: path.resolve(__dirname, "../.env"),
 });
+
+// --------------------------------------------------
+// EXPRESS APP
+// --------------------------------------------------
 
 const app = express();
 const server = http.createServer(app);
-const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
+// --------------------------------------------------
+// ENVIRONMENT
+// --------------------------------------------------
+
+const PORT = process.env.PORT || 5001;
+const NODE_ENV = process.env.NODE_ENV || "development";
+
+console.log("========================================");
+console.log("NEXAGRAM SERVER");
+console.log("========================================");
+console.log("Environment:", NODE_ENV);
+console.log("Port:", PORT);
+console.log("Gmail User:", process.env.GMAIL_USER || "NOT SET");
+console.log("Contact Receiver:", process.env.CONTACT_RECEIVER || "NOT SET");
+console.log("========================================");
+
+// --------------------------------------------------
+// MIDDLEWARE
+// --------------------------------------------------
+
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  }),
+);
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// --------------------------------------------------
+// GMAIL SMTP
+// --------------------------------------------------
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -33,242 +68,413 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// Check Gmail connection when server starts
 transporter.verify((error, success) => {
   if (error) {
     console.error("❌ Gmail SMTP connection failed:");
-    console.error(error);
+    console.error(error.message);
   } else {
     console.log("✅ Gmail SMTP connection is ready");
   }
 });
 
-// Health API
+// --------------------------------------------------
+// HEALTH CHECK
+// --------------------------------------------------
+
 app.get("/api/health", (req, res) => {
-  res.status(200).json({
+  res.json({
     status: "ok",
-    service: "Nexagram Backend Service",
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || "development",
+    message: "Nexagram backend is running",
+    environment: NODE_ENV,
+    emailConfigured: Boolean(
+      process.env.GMAIL_USER &&
+      process.env.GMAIL_APP_PASSWORD &&
+      process.env.CONTACT_RECEIVER,
+    ),
   });
 });
 
-// Courses API
-app.get("/api/courses", (req, res) => {
-  res.status(200).json({
-    success: true,
-    courses: [
-      {
-        id: "react-masterclass",
-        title: "React & Cloud Architecture Masterclass",
-        level: "Intermediate / Advanced",
-        duration: "200+ hours",
-        price: "$399",
-      },
-      {
-        id: "aws-hosting",
-        title: "AWS Cloud Deployment & Microservices",
-        level: "All Levels",
-        duration: "50+ hours",
-        price: "$199",
-      },
-    ],
-  });
-});
+// --------------------------------------------------
+// CONTACT FORM API
+// --------------------------------------------------
 
-// Subscribe API
-app.post("/api/subscribe", (req, res) => {
-  const { email } = req.body;
-
-  if (!email) {
-    return res.status(400).json({
-      success: false,
-      message: "Email is required",
-    });
-  }
-
-  return res.status(200).json({
-    success: true,
-    message: `Subscription successful for ${email}!`,
-  });
-});
-
-// Contact API
 app.post("/api/contact", async (req, res) => {
   try {
     const { name, email, message } = req.body;
 
+    console.log("----------------------------------------");
+    console.log("New contact form submission");
+    console.log("Name:", name);
+    console.log("Email:", email);
+    console.log("----------------------------------------");
+
+    // ----------------------------------------------
+    // VALIDATION
+    // ----------------------------------------------
+
     if (!name || !email || !message) {
       return res.status(400).json({
         success: false,
-        message: "All fields are required",
+        message: "Please fill in all required fields.",
       });
     }
 
-    await transporter.sendMail({
+    if (!process.env.GMAIL_USER) {
+      console.error("❌ GMAIL_USER is missing");
+      return res.status(500).json({
+        success: false,
+        message: "Email configuration is missing.",
+      });
+    }
+
+    if (!process.env.GMAIL_APP_PASSWORD) {
+      console.error("❌ GMAIL_APP_PASSWORD is missing");
+      return res.status(500).json({
+        success: false,
+        message: "Email configuration is missing.",
+      });
+    }
+
+    if (!process.env.CONTACT_RECEIVER) {
+      console.error("❌ CONTACT_RECEIVER is missing");
+      return res.status(500).json({
+        success: false,
+        message: "Email receiver configuration is missing.",
+      });
+    }
+
+    // ----------------------------------------------
+    // EMAIL
+    // ----------------------------------------------
+
+    const mailOptions = {
       from: `"Nexagram Website" <${process.env.GMAIL_USER}>`,
+
       to: process.env.CONTACT_RECEIVER,
+
       replyTo: email,
-      subject: `New Contact Message from ${name}`,
+
+      // Unique subject helps prevent Gmail conversation/thread confusion
+      subject: `Nexagram Website Enquiry - ${name}`,
 
       html: `
-        <div style="font-family:Arial,sans-serif;max-width:650px;margin:auto;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden">
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8" />
+          <title>Nexagram Website Enquiry</title>
+        </head>
 
-          <div style="background:#0d0d4f;padding:24px;color:#ffffff">
-            <h2 style="margin:0">New Website Enquiry</h2>
-            <p style="margin:8px 0 0;color:#58B947">
-              Nexagram Contact Form
-            </p>
-          </div>
+        <body
+          style="
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f8;
+            font-family: Arial, Helvetica, sans-serif;
+          "
+        >
 
-          <div style="padding:24px">
+          <div
+            style="
+              max-width: 650px;
+              margin: 30px auto;
+              background: #ffffff;
+              border-radius: 10px;
+              overflow: hidden;
+              box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            "
+          >
 
-            <table style="width:100%;border-collapse:collapse">
+            <!-- HEADER -->
 
-              <tr>
-                <td style="padding:10px 0;font-weight:bold;width:120px">
+            <div
+              style="
+                background: #0d0d4f;
+                padding: 25px;
+                text-align: center;
+              "
+            >
+              <h1
+                style="
+                  margin: 0;
+                  color: #ffffff;
+                  font-size: 24px;
+                "
+              >
+                Nexagram
+              </h1>
+
+              <p
+                style="
+                  margin: 8px 0 0;
+                  color: #58B947;
+                  font-size: 14px;
+                "
+              >
+                The Digital Standard
+              </p>
+            </div>
+
+            <!-- CONTENT -->
+
+            <div style="padding: 30px;">
+
+              <h2
+                style="
+                  margin-top: 0;
+                  color: #0d0d4f;
+                  font-size: 20px;
+                "
+              >
+                New Website Enquiry
+              </h2>
+
+              <p
+                style="
+                  color: #555555;
+                  font-size: 15px;
+                  line-height: 1.6;
+                "
+              >
+                You have received a new enquiry through the
+                Nexagram website contact form.
+              </p>
+
+              <!-- NAME -->
+
+              <div
+                style="
+                  margin-top: 25px;
+                  padding: 15px;
+                  background: #f7f8fa;
+                  border-radius: 6px;
+                "
+              >
+                <strong
+                  style="
+                    display: block;
+                    color: #0d0d4f;
+                    margin-bottom: 6px;
+                  "
+                >
                   Name
-                </td>
-                <td>${name}</td>
-              </tr>
+                </strong>
 
-              <tr>
-                <td style="padding:10px 0;font-weight:bold">
+                <span style="color: #333333;">
+                  ${escapeHtml(name)}
+                </span>
+              </div>
+
+              <!-- EMAIL -->
+
+              <div
+                style="
+                  margin-top: 12px;
+                  padding: 15px;
+                  background: #f7f8fa;
+                  border-radius: 6px;
+                "
+              >
+                <strong
+                  style="
+                    display: block;
+                    color: #0d0d4f;
+                    margin-bottom: 6px;
+                  "
+                >
                   Email
-                </td>
-                <td>${email}</td>
-              </tr>
+                </strong>
 
-            </table>
+                <span style="color: #333333;">
+                  ${escapeHtml(email)}
+                </span>
+              </div>
 
-            <hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0"/>
+              <!-- MESSAGE -->
 
-            <h3 style="margin-bottom:10px;color:#111827">
-              Message
-            </h3>
+              <div
+                style="
+                  margin-top: 12px;
+                  padding: 15px;
+                  background: #f7f8fa;
+                  border-radius: 6px;
+                "
+              >
+                <strong
+                  style="
+                    display: block;
+                    color: #0d0d4f;
+                    margin-bottom: 6px;
+                  "
+                >
+                  Message
+                </strong>
 
-            <div style="background:#f9fafb;padding:16px;border-radius:8px;line-height:1.7;white-space:pre-wrap">
-${message}
+                <p
+                  style="
+                    margin: 0;
+                    color: #333333;
+                    line-height: 1.7;
+                    white-space: pre-wrap;
+                  "
+                >
+                  ${escapeHtml(message)}
+                </p>
+              </div>
+
+              <!-- REPLY BUTTON -->
+
+              <div
+                style="
+                  text-align: center;
+                  margin-top: 30px;
+                "
+              >
+                <a
+                  href="mailto:${escapeHtml(email)}"
+                  style="
+                    display: inline-block;
+                    padding: 12px 25px;
+                    background: #58B947;
+                    color: #ffffff;
+                    text-decoration: none;
+                    border-radius: 6px;
+                    font-weight: bold;
+                  "
+                >
+                  Reply to Customer
+                </a>
+              </div>
+
+            </div>
+
+            <!-- FOOTER -->
+
+            <div
+              style="
+                padding: 18px;
+                background: #f1f3f5;
+                text-align: center;
+              "
+            >
+              <p
+                style="
+                  margin: 0;
+                  color: #777777;
+                  font-size: 12px;
+                "
+              >
+                This email was sent from the Nexagram website.
+              </p>
             </div>
 
           </div>
 
-        </div>
+        </body>
+        </html>
       `,
-    });
+    };
 
-    res.status(200).json({
+    // ----------------------------------------------
+    // SEND EMAIL
+    // ----------------------------------------------
+
+    const info = await transporter.sendMail(mailOptions);
+
+    console.log("✅ Email sent successfully");
+    console.log("Message ID:", info.messageId);
+
+    return res.status(200).json({
       success: true,
-      message:
-        "Thank you for reaching out! Your message has been sent successfully.",
+      message: "Your message has been sent successfully.",
     });
   } catch (error) {
-    console.error("EMAIL ERROR:", error);
+    console.error("❌ Error sending contact email:");
+    console.error(error);
 
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
-      message: "Failed to send email. Please try again later.",
+      message: "Failed to send your message. Please try again later.",
     });
   }
 });
 
-// API 404 handler - prevents unhandled API requests from falling through
-app.all("/api/*", (req, res) => {
-  res.status(404).json({
-    success: false,
-    error: "API endpoint not found",
-  });
-});
+// --------------------------------------------------
+// HTML ESCAPE FUNCTION
+// Prevents HTML injection inside emails
+// --------------------------------------------------
 
-// Frontend serving (Unified Server for Dev & Production)
-const rootDir = path.resolve(__dirname, "..");
-const isProduction = process.env.NODE_ENV === "production";
-
-function attachStaticServing() {
-  const buildPath = path.join(rootDir, "dist");
-  app.use(
-    express.static(buildPath, {
-      setHeaders: (res, filePath) => {
-        if (filePath.endsWith(".html")) {
-          res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-        } else {
-          res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
-        }
-      },
-    })
-  );
-  app.use(express.static(path.join(rootDir, "public")));
-
-  app.get("*", (req, res) => {
-    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    res.sendFile(path.join(buildPath, "index.html"), (err) => {
-      if (err) {
-        res
-          .status(200)
-          .send(
-            "Nexagram Backend Service is running on http://localhost:" + PORT
-          );
-      }
-    });
-  });
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
-if (!isProduction) {
-  try {
-    const { createServer: createViteServer } = await import("vite");
-    const vite = await createViteServer({
-      server: {
-        middlewareMode: true,
-        hmr: { server },
-        proxy: {},
-      },
-      appType: "custom",
-      root: rootDir,
-    });
+// --------------------------------------------------
+// VITE DEVELOPMENT / PRODUCTION
+// --------------------------------------------------
 
-    // Vite middlewares handle transformed assets (JS, CSS, images, HMR WS)
-    app.use(vite.middlewares);
+if (NODE_ENV === "development") {
+  // Vite development mode
+  const { createServer: createViteServer } = await import("vite");
 
-    // Dynamic HTML serving with Vite transform so design is ALWAYS current
-    app.use("*", async (req, res, next) => {
-      if (req.path.startsWith("/api")) {
-        return res.status(404).json({ error: "API endpoint not found" });
-      }
+  const vite = await createViteServer({
+    server: {
+      middlewareMode: true,
+    },
+    appType: "spa",
+  });
 
-      try {
-        const url = req.originalUrl;
-        const indexPath = path.resolve(rootDir, "index.html");
-        let template = fs.readFileSync(indexPath, "utf-8");
-        template = await vite.transformIndexHtml(url, template);
-        res
-          .status(200)
-          .set({
-            "Content-Type": "text/html",
-            "Cache-Control": "no-cache, no-store, must-revalidate",
-          })
-          .end(template);
-      } catch (err) {
-        vite.ssrFixStacktrace(err);
-        next(err);
-      }
-    });
+  app.use(vite.middlewares);
 
-    console.log("⚡ Vite development middleware attached (Live HMR active)");
-  } catch (error) {
-    console.warn(
-      "⚠️ Could not initialize Vite middleware, falling back to static dist serving:",
-      error.message
-    );
-    attachStaticServing();
-  }
+  console.log("✅ Vite development middleware enabled");
 } else {
-  attachStaticServing();
+  // ------------------------------------------------
+  // PRODUCTION
+  // ------------------------------------------------
+
+  const distPath = path.resolve(__dirname, "../dist");
+
+  if (fs.existsSync(distPath)) {
+    app.use(express.static(distPath));
+
+    app.get("*", (req, res) => {
+      res.sendFile(path.join(distPath, "index.html"));
+    });
+
+    console.log("✅ Production frontend enabled");
+    console.log("Frontend:", distPath);
+  } else {
+    console.error("❌ dist folder not found:", distPath);
+  }
 }
 
-server.listen(PORT, () => {
-  console.log("===============================================");
-  console.log(
-    ` Nexagram Unified Server running (${isProduction ? "Production" : "Development"})`
-  );
-  console.log(` http://localhost:${PORT}`);
-  console.log("===============================================");
+// --------------------------------------------------
+// START SERVER
+// --------------------------------------------------
+
+server.listen(PORT, "0.0.0.0", () => {
+  console.log("========================================");
+  console.log(`🚀 Nexagram server running`);
+  console.log(`📡 Port: ${PORT}`);
+  console.log(`🌍 Environment: ${NODE_ENV}`);
+  console.log("========================================");
+});
+
+// --------------------------------------------------
+// ERROR HANDLING
+// --------------------------------------------------
+
+process.on("uncaughtException", (error) => {
+  console.error("❌ Uncaught Exception:");
+  console.error(error);
+});
+
+process.on("unhandledRejection", (error) => {
+  console.error("❌ Unhandled Promise Rejection:");
+  console.error(error);
 });

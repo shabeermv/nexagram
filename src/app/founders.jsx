@@ -11,14 +11,14 @@ const founders = [
     image: "/image/suhail nexagram png.png",
   },
   {
-    name: "Lukmanul Hakeem K",
-    role: "Co-founder, Sales Head",
-    image: "/image/lukman png.png",
-  },
-  {
     name: "Mohamed Shanif p",
     role: "Co-founder, Operation Manager",
     image: "/image/shanif png.png",
+  },
+  {
+    name: "Lukmanul Hakeem K",
+    role: "Co-founder, Sales Head",
+    image: "/image/lukman png.png",
   },
   {
     name: "Jasar KP",
