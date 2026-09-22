@@ -5,11 +5,11 @@ import { Typography } from "@material-tailwind/react";
 const OTHER_COURSES = [
   {
     img: "/image/Bridge 2024 Season2 Award.jpeg",
-    title: "Associate and part of Gitex Global",
+    title: "Bridge 2024 Season2 Award",
   },
   {
     img: "/image/Associate and part of Gitex Global (1).jpeg",
-    title: "Bridge 2024 Season2 Award",
+    title: "Associate and part of Gitex Global",
   },
   {
     img: "/image/2026 Election Strategy and PR for UDF.jpeg",
