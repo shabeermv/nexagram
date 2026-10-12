@@ -1,4 +1,5 @@
 import React from "react";
+
 const founders = [
   {
     name: "Mohammed Ashiq KK",
@@ -11,7 +12,7 @@ const founders = [
     image: "/image/suhail nexagram png.png",
   },
   {
-    name: "Mohamed Shanif p",
+    name: "Mohamed Shanif P",
     role: "Co-founder, Operation Manager",
     image: "/image/shanif png.png",
   },
@@ -21,13 +22,14 @@ const founders = [
     image: "/image/lukman png.png",
   },
 ];
+
 export default function FoundersSection() {
   return (
-    <section className="relative overflow-hidden bg-white py-10 md:py-14 lg:py-16">
-      {/* ================= WHITE BACKGROUND + LOW OPACITY IMAGE ================= */}
-      <div className="absolute inset-0 z-0 bg-white">
+    <section className="relative overflow-hidden bg-white py-12 md:py-16 lg:py-20">
+      {/* Background watermark */}
+      <div className="absolute inset-0 bg-white">
         <div
-          className="absolute inset-0 opacity-[0.05]"
+          className="absolute inset-0 opacity-[0.04]"
           style={{
             backgroundImage: "url('/image/x%20png.png')",
             backgroundRepeat: "repeat",
@@ -37,42 +39,45 @@ export default function FoundersSection() {
         />
       </div>
 
-      {/* ================= MAIN CONTAINER ================= */}
-      <div className="relative z-10 mx-auto max-w-[1600px] px-6 md:px-10 lg:px-16">
-        {/* ================= NEXAGRAM LOGO ================= */}
-        <div className="relative mb-10 flex justify-center md:mb-12">
-          <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-[12px] font-semibold tracking-[0.35em] text-[#123B66] md:-top-7 md:text-[16px]">
+      {/* Main container */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
+        {/* Nexagram logo */}
+        <div className="relative mb-12 flex justify-center md:mb-16">
+          <span className="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-semibold tracking-[0.35em] text-[#123B66] md:-top-5 md:text-sm">
             WE THE
           </span>
 
           <img
             src="/image/nexa blue 2.png"
             alt="Nexagram"
-            className="h-24 w-auto object-contain md:h-32 lg:h-40"
+            className="h-24 w-auto object-contain md:h-28 lg:h-32"
           />
         </div>
 
-        {/* ================= FOUNDERS GRID ================= */}
-        <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-12 lg:grid-cols-5 lg:gap-x-6 lg:gap-y-0">
-          {" "}
-          {founders.map((founder, index) => (
-            <div key={index} className="flex flex-col items-center text-center">
-              {/* FOUNDER IMAGE */}
-              <div className="h-[190px] w-[190px] overflow-hidden rounded-full border border-[#58B947] bg-white md:h-[210px] md:w-[210px] lg:h-[220px] lg:w-[220px]">
+        {/* Founders grid */}
+        <div className="grid grid-cols-1 justify-items-center gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-0">
+          {founders.map((founder) => (
+            <div
+              key={founder.name}
+              className="flex w-full max-w-[280px] flex-col items-center text-center"
+            >
+              {/* Founder image */}
+              <div className="h-44 w-44 shrink-0 overflow-hidden rounded-full border-2 border-[#58B947] bg-white sm:h-48 sm:w-48 lg:h-52 lg:w-52">
                 <img
                   src={founder.image}
                   alt={founder.name}
-                  className="h-full w-full object-cover"
+                  loading="lazy"
+                  className="h-full w-full object-cover object-center"
                 />
               </div>
 
-              {/* FOUNDER NAME */}
-              <h3 className="mt-4 text-[19px] font-semibold leading-tight text-[#123B66] md:text-[20px] lg:text-[21px]">
+              {/* Founder name */}
+              <h3 className="mt-5 min-h-[3.5rem] w-full text-center text-lg font-semibold leading-7 text-[#123B66] sm:text-xl">
                 {founder.name}
               </h3>
 
-              {/* FOUNDER ROLE */}
-              <p className="mt-1 text-[14px] font-normal leading-6 text-[#6B7280] md:text-[15px] lg:text-[16px]">
+              {/* Founder role */}
+              <p className="mt-1 min-h-[3rem] w-full text-center text-sm leading-6 text-[#6B7280] sm:text-base">
                 {founder.role}
               </p>
             </div>
