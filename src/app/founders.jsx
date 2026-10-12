@@ -20,11 +20,6 @@ const founders = [
     role: "Co-founder, Sales Head",
     image: "/image/lukman png.png",
   },
-  {
-    name: "Jasar KP",
-    role: "Co-founder",
-    image: "/image/jasar kp.png",
-  },
 ];
 export default function FoundersSection() {
   return (
